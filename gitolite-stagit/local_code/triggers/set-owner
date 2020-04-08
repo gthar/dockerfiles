@@ -1,0 +1,5 @@
+#!/bin/sh
+
+set -e
+
+[ -n "$2" ] && /usr/local/bin/set-owner "$2"

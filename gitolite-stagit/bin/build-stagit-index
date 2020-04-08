@@ -1,0 +1,16 @@
+#!/bin/sh
+
+set -e
+
+STAGIT_DIR="${STAGIT_DIR:-/var/lib/git/stagit}"
+GL_REPO_BASE="${GL_REPO_BASE:-/var/lib/git/repositories}"
+
+gitolite list-phy-repos | \
+    gitolite access % stagit R any | \
+    awk \
+        -F'\t' \
+        -v d="${GL_REPO_BASE}" \
+        '{if ($3 !~ "DENIED") print d"/"$1".git"}' | \
+    xargs -r /usr/local/bin/stagit-index | \
+    sed 's|\(<a href=".*\)/log.html\(">\)|\1\2|' > \
+    "${STAGIT_DIR}/index.html"

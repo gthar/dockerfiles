@@ -1,0 +1,3 @@
+gitolite/.env
+ansible/.env
+ansible/known_hosts

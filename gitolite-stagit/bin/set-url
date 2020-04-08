@@ -1,0 +1,18 @@
+#!/bin/sh
+
+set -e
+
+[ -z "$1" ] && exit 0
+
+GL_REPO_BASE="${GL_REPO_BASE:-/var/lib/git/repositories}"
+repo_dir="${GL_REPO_BASE}/${1}.git"
+
+# shellcheck disable=SC1091
+[ -z "${REPOS_URL}" ] && [ -f /etc/env ] && . /etc/env
+
+echo "setting url for '${1}'"
+if [ -z "$REPOS_URL" ]; then
+    echo "REPOS_URL not set"
+    exit 0
+fi
+[ -d "$repo_dir" ] && echo "${REPOS_URL}/${1}" > "${repo_dir}/url"

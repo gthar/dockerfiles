@@ -1,0 +1,22 @@
+#!/bin/sh
+
+set -e
+
+[ -z "${1}" ] && exit
+
+STAGIT_DIR="${STAGIT_DIR:-/var/lib/git/stagit}"
+GL_REPO_BASE="${GL_REPO_BASE:-/var/lib/git/repositories}"
+
+out_dir="${STAGIT_DIR}/${1}"
+repo_dir="${GL_REPO_BASE}/${1}.git"
+
+echo "running stagit for '${1}'"
+
+if gitolite access "${1}" stagit R any; then
+    mkdir -p "${out_dir}" && \
+    cd "${out_dir}" && \
+    /usr/local/bin/stagit "${repo_dir}" &&
+    ln -sf files.html index.html
+else
+    rm -rf "${out_dir}"
+fi

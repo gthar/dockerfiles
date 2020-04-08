@@ -1,0 +1,17 @@
+#!/bin/sh
+
+case $1 in
+    daemon)
+        [ -n "$REPOS_DIR" ] && [ -d "$REPOS_DIR" ] && \
+            exec git daemon \
+                --reuseaddr \
+                --base-path=/var/lib/git/repositories \
+                /var/lib/git/repositories
+        ;;
+    fcgi)
+        FCGI_PORT=${FCGI_PORT:-9000}
+        exec spawn-fcgi -p "${FCGI_PORT}" -n /usr/bin/fcgiwrap
+        ;;
+    *)
+        exec "$@"
+esac

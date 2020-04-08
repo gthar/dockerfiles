@@ -1,0 +1,8 @@
+#!/bin/sh
+
+set -e
+
+[ -n "${GL_REPO}" ] && \
+    /usr/local/bin/set-url "${GL_REPO}" && \
+    /usr/local/bin/set-owner "${GL_REPO}" && \
+    /usr/local/bin/build-stagit-repo "${GL_REPO}"
