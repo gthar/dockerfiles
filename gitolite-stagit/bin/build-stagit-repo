@@ -13,9 +13,9 @@ GL_REPO_BASE="${GL_REPO_BASE:-/var/lib/git/repositories}"
 run_stagit () {
     repo_dir="${GL_REPO_BASE}/${1}.git"
     if [ -n "${2}" ]; then
-        out_dir="${STAGIT_BASE}-${2}/${1}.git"
+        out_dir="${STAGIT_BASE}-${2}/${1}"
     else
-        out_dir="${STAGIT_BASE}/${1}/git"
+        out_dir="${STAGIT_BASE}/${1}"
     fi
     mkdir -p "${out_dir}" && \
         cd "${out_dir}" && \
@@ -66,5 +66,5 @@ if gitolite access "${1}" stagit R any; then
     fi
 
 else
-    rm -rf "${STAGIT_BASE}*/${1}.git"
+    rm -rf "${STAGIT_BASE}"*"/${1}.git"
 fi

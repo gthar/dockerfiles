@@ -2,7 +2,7 @@
 
 set -e
 
-env | awk -F"=" '{ print $1"=\""$2"\"" }' > /etc/env
+su-exec git env | awk -F"=" '{ print $1"=\""$2"\"" }' > /etc/env
 
 for algorithm in rsa dsa ecdsa ed25519; do
     keyfile="/etc/ssh/keys/ssh_host_${algorithm}_key"
@@ -22,7 +22,7 @@ mkdir -p \
 chown -R git:git \
     "${BASE_DIR}/.gitolite" \
     "${BASE_DIR}/.ssh" \
-    "${BASE_DIR}/stagit" \
+    "${BASE_DIR}/stagit"* \
     "${BASE_DIR}/repositories"
 
 if [ ! -f "${BASE_DIR}/.ssh/authorized_keys" ]; then
@@ -42,8 +42,6 @@ else
 fi
 
 echo "building static site"
-su-exec git set-urls
-su-exec git set-owners
 su-exec git build-stagit-repos
 su-exec git build-stagit-index
 
