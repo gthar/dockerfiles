@@ -30,17 +30,10 @@ RUN chown -R git:git /var/lib/git && \
         /usr/local/bin/build-stagit-index \
         /usr/local/bin/build-stagit-repo \
         /usr/local/bin/build-stagit-repos \
-        /usr/local/bin/set-url \
-        /usr/local/bin/set-urls \
-        /usr/local/bin/set-owner \
-        /usr/local/bin/set-owners \
         /opt/gitolite-local/hooks/common/post-receive \
         /opt/gitolite-local/triggers/build-stagit-index \
-        /opt/gitolite-local/triggers/build-stagit-repos \
-        /opt/gitolite-local/triggers/set-url \
-        /opt/gitolite-local/triggers/set-urls \
-        /opt/gitolite-local/triggers/set-owners \
-        /opt/gitolite-local/triggers/set-owner
+        /opt/gitolite-local/triggers/build-stagit-repo \
+        /opt/gitolite-local/triggers/build-stagit-repos
 
 ENTRYPOINT ["/usr/local/bin/entrypoint"]
 CMD ["/usr/sbin/sshd", "-D", "-e"]

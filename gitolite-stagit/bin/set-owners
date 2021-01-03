@@ -1,7 +1,0 @@
-#!/bin/sh
-
-set -e
-
-for repo in $(gitolite list-phy-repos); do
-    /usr/local/bin/set-owner "${repo}"
-done

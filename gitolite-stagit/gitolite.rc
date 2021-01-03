@@ -86,15 +86,12 @@
 
     #POST_COMPILE => [],
     POST_COMPILE => [
-        'set-urls',
-        'set-owners',
         'build-stagit-repos',
         'build-stagit-index'
     ],
 
     POST_CREATE => [
-        'set-url',
-        'set-owner'
+        'build-stagit-repo'
     ],
 
     # List of commands and features to enable
