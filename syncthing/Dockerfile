@@ -3,7 +3,7 @@
 FROM alpine:3.12
 
 ARG ARCH
-ENV VER v1.12.0
+ENV VER v1.12.1
 ENV REL syncthing-linux-${ARCH}-${VER}
 ENV URI https://github.com/syncthing/syncthing/releases/download/${VER}/${REL}.tar.gz
 
