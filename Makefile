@@ -16,7 +16,7 @@ ddclient:
 gitolite:
 	$(BUILD)
 
-gitolite-stagit:
+gitolite-pystagit:
 	$(BUILD)
 
 git-daemon:

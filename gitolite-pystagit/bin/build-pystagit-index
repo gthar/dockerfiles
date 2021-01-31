@@ -2,17 +2,17 @@
 
 set -e
 
-PYSTAGIT_BASE="${PYSTAGIT_BASE:-/var/lib/git/stagit}"
+PYSTAGIT_BASE="${PYSTAGIT_BASE:-/var/lib/git/pystagit}"
 GL_REPO_BASE="${GL_REPO_BASE:-/var/lib/git/repositories}"
 
 mk_index () {
     gitolite list-phy-repos | \
-        gitolite access % stagit R any | \
+        gitolite access % pystagit R any | \
         awk \
             -F'\t' \
             -v d="${GL_REPO_BASE}" \
             '{if ($3 !~ "DENIED") print d"/"$1".git"}' | \
-        xargs -r /usr/local/bin/stagit-index | \
+        xargs -r /usr/bin/pystagit-index | \
         sed 's|\(<a href=".*\)/log.html\(">\)|\1\2|' > \
         "${1}/index.html"
 }

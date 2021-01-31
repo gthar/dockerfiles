@@ -19,7 +19,7 @@ run_pystagit () {
     fi
     mkdir -p "${out_dir}" && \
         cd "${out_dir}" && \
-        /usr/local/bin/pystagit "${repo_dir}" && \
+        /usr/bin/pystagit "${repo_dir}" && \
         ln -sf files.html index.html
 }
 
