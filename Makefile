@@ -1,4 +1,4 @@
-images=backup buku ddclient gitolite gitolite-stagit git-daemon rss-bridge syncthing tasks tor vdirsyncer wallabag xandikos
+images=backup buku ddclient gitolite gitolite-pystagit git-daemon rss-bridge syncthing tasks tor vdirsyncer wallabag xandikos
 .PHONY: all $(images)
 all: $(images)
 

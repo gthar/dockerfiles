@@ -1,0 +1,70 @@
+#!/bin/sh
+
+set -e
+
+[ -z "${1}" ] && exit
+
+PYSTAGIT_BASE="${PYSTAGIT_BASE:-/var/lib/git/pystagit}"
+GL_REPO_BASE="${GL_REPO_BASE:-/var/lib/git/repositories}"
+
+# shellcheck disable=SC1091
+[ -f /etc/env ] && . /etc/env
+
+run_pystagit () {
+    repo_dir="${GL_REPO_BASE}/${1}.git"
+    if [ -n "${2}" ]; then
+        out_dir="${PYSTAGIT_BASE}-${2}/${1}"
+    else
+        out_dir="${PYSTAGIT_BASE}/${1}"
+    fi
+    mkdir -p "${out_dir}" && \
+        cd "${out_dir}" && \
+        /usr/local/bin/pystagit "${repo_dir}" && \
+        ln -sf files.html index.html
+}
+
+set_url () {
+    url_file="${GL_REPO_BASE}/${1}.git/url"
+    if [ -n "${2}" ]; then
+        echo "${2}/${1}" > "${url_file}"
+    else
+        echo "url not set"
+        rm -f "${url_file}"
+    fi
+}
+
+set_owner () {
+    owner_file="${GL_REPO_BASE}/${1}.git/owner"
+    if owner=$(gitolite git-config "${1}" gitweb.owner); then
+        echo "setting owner for '${1}'"
+        echo "${owner}" > "${owner_file}"
+    else
+        echo "usetting owner for '${1}'"
+        rm -f "${owner_file}"
+    fi
+}
+
+echo "running pystagit for '${1}'"
+
+if gitolite access "${1}" pystagit R any; then
+
+    set_owner "${1}"
+
+    if [ -n "${SITES}" ]; then
+        _i=1
+        for site in ${SITES}; do
+            url=$(printf "%s" "${URLS}" | cut -d " " -f "$_i")
+            set_url "${1}" "${url}"
+            run_pystagit "${1}" "${site}"
+            _i=$((_i+1))
+        done
+
+    else
+        url=$(printf "%s" "${URLS}" | cut -d " " -f 1)
+        set_url "${1}" "${url}"
+        run_pystagit "${1}" ""
+    fi
+
+else
+    rm -rf "${PYSTAGIT_BASE}"*"/${1}.git"
+fi
