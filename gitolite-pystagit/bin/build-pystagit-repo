@@ -21,7 +21,7 @@ run_pystagit () {
         cd "${out_dir}" && \
         /usr/bin/pystagit "${repo_dir}" && \
         if [ -f about.html ]; then
-            ln -sf files.html index.html
+            ln -sf about.html index.html
         else
             ln -sf log.html index.html
         fi
