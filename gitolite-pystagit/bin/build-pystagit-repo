@@ -20,7 +20,11 @@ run_pystagit () {
     mkdir -p "${out_dir}" && \
         cd "${out_dir}" && \
         /usr/bin/pystagit "${repo_dir}" && \
-        ln -sf files.html index.html
+        if [ -f about.html ]; then
+            ln -sf about.html index.html
+        else
+            ln -sf log.html index.html
+        fi
 }
 
 set_url () {
