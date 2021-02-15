@@ -1,4 +1,4 @@
-images=backup buku ddclient gitolite gitolite-pystagit git-daemon rss-bridge syncthing tasks tor vdirsyncer wallabag xandikos
+images=backup buku ddclient gitolite gitolite-pystagit git-daemon rss-bridge sassc syncthing tasks tor vdirsyncer xandikos
 .PHONY: all $(images)
 all: $(images)
 
@@ -25,6 +25,9 @@ git-daemon:
 rss-bridge:
 	$(BUILD)
 
+sassc:
+	$(BUILD)
+
 syncthing:
 	$(BUILD)
 
@@ -38,7 +41,4 @@ vdirsyncer:
 	$(BUILD)
 
 xandikos:
-	$(BUILD)
-
-wallabag:
 	$(BUILD)
