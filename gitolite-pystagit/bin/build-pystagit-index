@@ -12,9 +12,9 @@ mk_index () {
             -F'\t' \
             -v d="${GL_REPO_BASE}" \
             '{if ($3 !~ "DENIED") print d"/"$1".git"}' | \
-        xargs -r /usr/bin/pystagit-index | \
-        sed 's|\(<a href=".*\)/log.html\(">\)|\1\2|' > \
-        "${1}/index.html"
+        xargs -r /usr/bin/pystagit-index > \
+            "${1}/index.html" && \
+	chmod 644 "${1}/index.html"
 }
 
 if [ -n "${SITES}" ]; then

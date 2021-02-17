@@ -18,6 +18,7 @@ run_pystagit () {
         out_dir="${PYSTAGIT_BASE}/${1}"
     fi
     mkdir -p "${out_dir}" && \
+	chmod 755 "${out_dir}" && \
         cd "${out_dir}" && \
         /usr/bin/pystagit "${repo_dir}" && \
         if [ -f about.html ]; then

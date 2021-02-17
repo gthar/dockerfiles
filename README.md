@@ -20,14 +20,14 @@ useful.
 * buku: buku and bukuserver
 * ddclient
 * git-daemon: for git-daemon and git-http-backend
-* gitolite-stagit: well, gitolite + stagit
+* gitolite-pystagit: well, gitolite + pystagit
 * gitolite: gitolite + docker, so that I can mount the docker socket inside of
   it and have it do useful things through docker in response to triggers
-* ledger-web
+* sassc
 * syncthing
 * tasks: intended to run a cron daemon to run arbitrary periodic tasks. I mount
   the docker socket inside of it to have it perform maintanance tasks outside
   of it's container.
+* tor
 * vdirsyncer
-* wallabag
 * xandikos
