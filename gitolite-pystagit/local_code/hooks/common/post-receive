@@ -3,4 +3,5 @@
 set -e
 
 [ -n "${GL_REPO}" ] && \
-    /usr/local/bin/build-pystagit-repo "${GL_REPO}"
+    /usr/local/bin/build-pystagit-repo "${GL_REPO}" &&
+    /usr/local/bin/build-pystagit-index

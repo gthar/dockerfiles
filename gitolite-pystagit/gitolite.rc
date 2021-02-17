@@ -91,7 +91,8 @@
     ],
 
     POST_CREATE => [
-        'build-pystagit-repo'
+        'build-pystagit-repo',
+        'build-pystagit-index'
     ],
 
     # List of commands and features to enable
