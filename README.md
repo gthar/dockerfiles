@@ -15,6 +15,7 @@ useful.
 
 (many are self-explanatory)
 
+* agate
 * ansible
 * backup: simple image used in some of my backup daemons
 * buku: buku and bukuserver
