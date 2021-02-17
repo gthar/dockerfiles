@@ -17,6 +17,9 @@ mk_index () {
 	chmod 644 "${1}/index.html"
 }
 
+# shellcheck disable=SC1091
+[ -f /etc/env ] && . /etc/env
+
 if [ -n "${SITES}" ]; then
     for site in ${SITES}; do
         mk_index "${PYSTAGIT_BASE}-${site}"
