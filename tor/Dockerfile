@@ -1,6 +1,9 @@
 FROM alpine:3.13
 
-RUN addgroup --gid 10001 tor && \
+COPY entrypoint.sh /entrypoint
+
+RUN chmod +x /entrypoint
+    addgroup --gid 10001 tor && \
     adduser \
         --uid 10000 \
         --home /var/lib/tor \
@@ -8,7 +11,7 @@ RUN addgroup --gid 10001 tor && \
         --disabled-password \
         --shell /sbin/nologin \
         tor && \
-    apk add --no-cache tor
+    apk add --no-cache tor su-exec
 
-USER tor
-CMD tor
+ENTRYPOINT ["/entrypoint"]
+CMD ["tor"]
