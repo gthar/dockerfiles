@@ -2,7 +2,7 @@ FROM alpine:3.13
 
 COPY entrypoint.sh /entrypoint
 
-RUN chmod +x /entrypoint
+RUN chmod +x /entrypoint && \
     addgroup --gid 10001 tor && \
     adduser \
         --uid 10000 \
