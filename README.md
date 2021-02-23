@@ -2,7 +2,9 @@
 
 Collection of docker images for my personal use. I usually implement my own
 docker images if I don't find one built or recommended by the original
-developer of the software I intend to run.
+developer of the software I intend to run. Or if the recommended one is too
+complex for my specific use case. Or if I don't like it for whatever reason. Or
+if I just feel like making my own image.
 
 Simply run `make $IMG_NAME` to build a specific image or run `make` to build them
 all.
@@ -16,6 +18,7 @@ useful.
 (many are self-explanatory)
 
 * agate
+* archivebox
 * ansible
 * backup: simple image used in some of my backup daemons
 * buku: buku and bukuserver

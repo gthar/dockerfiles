@@ -1,10 +1,13 @@
-images=agate ansible backup buku ddclient git-daemon gitolite gitolite-pystagit rss-bridge sassc syncthing tasks tor vdirsyncer xandikos
+images=agate archivebox ansible backup buku ddclient git-daemon gitolite gitolite-pystagit rss-bridge sassc syncthing tasks tor vdirsyncer xandikos
 .PHONY: all $(images)
 all: $(images)
 
 BUILD = make -C $@
 
 agate:
+	$(BUILD)
+
+archivebox:
 	$(BUILD)
 
 ansible:
