@@ -1,11 +1,15 @@
-FROM alpine:3.11
+FROM alpine:3.13
 
-RUN apk add --no-cache python3 su-exec && \
-    apk add --no-cache --virtual .build-deps py3-pip && \
+RUN apk add --no-cache python3 py3-pip su-exec && \
     pip3 install --upgrade pip && \
     pip3 install vdirsyncer vdirsyncer[google] requests_oauthlib && \
-    apk del .build-deps && \
-    adduser -D -h /var/lib/vdirsyncer vdirsyncer && \
+    addgroup --gid 10001 vdirsyncer && \
+    adduser \
+        --empty-password \
+        --home /var/lib/vdirsyncer \
+        --uid 10000 \
+        --ingroup vdirsyncer \
+        vdirsyncer && \
     mkdir -p /var/lib/vdirsyncer/status /var/lib/vdirsyncer/tokens && \
     touch /var/lib/vdirsyncer/config && \
     chown -R vdirsyncer:vdirsyncer /var/lib/vdirsyncer
