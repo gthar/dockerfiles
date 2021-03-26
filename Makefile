@@ -1,4 +1,4 @@
-images=agate archivebox ansible backup buku ddclient git-daemon gitolite gitolite-pystagit rss-bridge pleroma sassc syncthing tasks tor vdirsyncer xandikos
+images=agate archivebox ansible backup buku ddclient git-daemon gitolite gitolite-pystagit rss-bridge pleroma sassc syncthing tasks tor transmission vdirsyncer xandikos
 .PHONY: all $(images)
 all: $(images)
 
@@ -47,6 +47,9 @@ tasks:
 	$(BUILD)
 
 tor:
+	$(BUILD)
+
+transmission:
 	$(BUILD)
 
 vdirsyncer:

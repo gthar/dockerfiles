@@ -34,5 +34,6 @@ useful.
   the docker socket inside of it to have it perform maintanance tasks outside
   of it's container.
 * tor
+* transmission
 * vdirsyncer
 * xandikos
