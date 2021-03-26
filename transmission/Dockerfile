@@ -33,9 +33,17 @@ RUN addgroup \
         --ingroup transmission \
         --disabled-password \
         --shell /sbin/nologin \
-        transmission
+        transmission && \
+    mkdir -p \
+        /var/lib/transmission/blocklists \
+        /var/lib/transmission/downloads \
+        /var/lib/transmission/incomplete \
+        /var/lib/transmission/resume \
+        /var/lib/transmission/torrents && \
+    chown -R transmission:transmission /var/lib/transmission
 
 ENV TRANSMISSION_HOME /var/lib/transmission
 USER transmission
+WORKDIR /var/lib/transmission
 
 CMD ["/usr/local/bin/transmission-daemon", "--foreground"]
