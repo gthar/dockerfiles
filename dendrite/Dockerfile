@@ -12,7 +12,7 @@ RUN apk --no-cache add git build-base && \
 
 FROM alpine:3.13
 
-COPY --from=builder /build/bin/* /usr/local/bin
+COPY --from=builder /build/bin/* /usr/local/bin/
 COPY entrypoint.sh /usr/local/bin/entrypoint
 
 RUN chmod +x /usr/local/bin/entrypoint && \
