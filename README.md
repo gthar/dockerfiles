@@ -28,6 +28,7 @@ useful.
 * gitolite-pystagit: well, gitolite + pystagit
 * gitolite: gitolite + docker, so that I can mount the docker socket inside of
   it and have it do useful things through docker in response to triggers
+* nfs-server
 * pleroma
 * sassc
 * syncthing
