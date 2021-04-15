@@ -19,13 +19,13 @@ RUN chmod +x /usr/local/bin/entrypoint && \
     addgroup --gid 10001 dendrite && \
     adduser \
         --uid 10000 \
-        --home /var/dendrite \
+        --home /var/lib/dendrite \
         --ingroup dendrite \
         --disabled-password \
         --shell /sbin/nologin \
         dendrite && \
-    mkdir -p /var/log/dendrite && \
-    chown -R dendrite:dendrite /var/log/dendrite
+    mkdir -p /var/log/dendrite /var/dendrite/media && \
+    chown -R dendrite:dendrite /var/log/dendrite /var/dendrite
 
 WORKDIR /etc/dendrite
 USER dendrite
