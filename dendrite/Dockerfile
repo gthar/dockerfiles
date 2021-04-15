@@ -19,7 +19,7 @@ RUN chmod +x /usr/local/bin/entrypoint && \
     addgroup --gid 10001 dendrite && \
     adduser \
         --uid 10000 \
-        --home /var/lib/dendrite \
+        --home /var/dendrite \
         --ingroup dendrite \
         --disabled-password \
         --shell /sbin/nologin \
