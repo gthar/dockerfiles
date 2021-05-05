@@ -30,6 +30,7 @@ useful.
   it and have it do useful things through docker in response to triggers
 * nfs-server
 * pleroma
+* rainloop
 * sassc
 * syncthing
 * tasks: intended to run a cron daemon to run arbitrary periodic tasks. I mount
