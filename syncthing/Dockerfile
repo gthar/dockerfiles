@@ -3,7 +3,7 @@
 FROM alpine:3.13
 
 ARG ARCH
-ENV VER v1.13.1
+ENV VER v1.16.1
 ENV REL syncthing-linux-${ARCH}-${VER}
 ENV URI https://github.com/syncthing/syncthing/releases/download/${VER}/${REL}.tar.gz
 
@@ -13,11 +13,9 @@ RUN adduser -u 1001 -h /var/lib/syncthing -D syncthing && \
     addgroup -S -g 1005 books && addgroup syncthing books && \
     addgroup -S -g 1006 buku  && addgroup syncthing buku
 
-RUN mkdir -p /data       && chown -R syncthing:syncthing /data && \
-    mkdir -p /data/books && chown -R syncthing:books     /data/books && chmod '2775' /data/books && \
-    mkdir -p /data/buku  && chown -R syncthing:buku      /data/buku  && chmod '2775' /data/buku
+RUN mkdir -p /data && chown -R syncthing:syncthing /data
 
-VOLUME /data /data/books /data/buku /var/lib/syncthing
+VOLUME /data /var/lib/syncthing
 
 RUN cd /tmp && \
     wget ${URI} && \
