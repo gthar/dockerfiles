@@ -1,6 +1,6 @@
 FROM debian:buster-slim
 
-ENV ARCH x64
+ARG ARCH
 ENV VER v0.17.2.0
 ENV URL "https://downloads.getmonero.org/cli/monero-linux-${ARCH}-${VER}.tar.bz2"
 
@@ -24,8 +24,3 @@ RUN groupadd --gid 10001 monero && \
 
 USER monero
 WORKDIR /var/lib/monero
-
-# port 18081
-# ~/.bitmonero
-# ~/.bitmonero/lmdb  -- blockchain dir
-# ~/.bitmonero/bitmonero.conf / or --config-file
