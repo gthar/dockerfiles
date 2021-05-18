@@ -1,4 +1,4 @@
-images=agate archivebox ansible backup buku ddclient git-daemon gitolite gitolite-pystagit rss-bridge pleroma sassc syncthing tasks tor transmission vdirsyncer xandikos nfs-server dendrite monero
+images=agate archivebox ansible backup buku ddclient git-daemon gitolite gitolite-pystagit rss-bridge pleroma sassc syncthing tasks tor transmission vdirsyncer xandikos nfs-server dendrite rainloop monero
 
 .PHONY: all $(images)
 all: $(images)
@@ -63,6 +63,9 @@ xandikos:
 	$(BUILD)
 
 dendrite:
+	$(BUILD)
+
+rainloop:
 	$(BUILD)
 
 monero:

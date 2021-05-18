@@ -31,6 +31,7 @@ useful.
 * monero
 * nfs-server
 * pleroma
+* rainloop
 * sassc
 * syncthing
 * tasks: intended to run a cron daemon to run arbitrary periodic tasks. I mount
