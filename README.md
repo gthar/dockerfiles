@@ -24,6 +24,7 @@ useful.
 * buku: buku and bukuserver
 * ddclient
 * dendrite
+* filite
 * git-daemon: for git-daemon and git-http-backend
 * gitolite-pystagit: well, gitolite + pystagit
 * gitolite: gitolite + docker, so that I can mount the docker socket inside of
