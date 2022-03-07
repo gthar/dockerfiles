@@ -1,10 +1,15 @@
-USERNAME = rilla
 IMG_NAME = xandikos
+REGISTRY=registry.monotremata.xyz:443
 
-.PHONY: build build-nc
+IMG=$(REGISTRY)/$(IMG_NAME)
+
+.PHONY: build build-nc push
 
 build: Dockerfile entrypoint.sh
-	docker build -t $(USERNAME)/$(IMG_NAME) .
+	docker build -t $(IMG) .
+
+push: build
+	docker image push $(IMG)
 
 build-nc: Dockerfile entrypoint.sh
-	docker build --no-cache -t $(USERNAME)/$(IMG_NAME) .
+	docker build --no-cache -t $(IMG) .

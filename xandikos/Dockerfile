@@ -1,4 +1,4 @@
-FROM alpine:3.11
+FROM alpine:3.14
 
 RUN apk add --no-cache \
         git \
@@ -12,12 +12,13 @@ RUN apk add --no-cache \
     pip3 install --upgrade pip && \
     pip3 install \
         aiohttp \
-        defusedxml \
-        dulwich \
         icalendar \
+        dulwich>=0.19.1 \
+        defusedxml \
         jinja2 \
+        multidict \
         prometheus-client && \
-    apk del .build-deps && \
+    # apk del .build-deps && \
     mkdir -p /opt && \
     git clone https://github.com/jelmer/xandikos /opt/xandikos && \
     adduser -D -h /var/lib/xandikos xandikos && \

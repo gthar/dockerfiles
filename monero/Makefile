@@ -1,7 +1,8 @@
-USERNAME = rilla
 IMG_NAME = monero
+REGISTRY=registry.monotremata.xyz:443
+IMG=$(REGISTRY)/$(IMG_NAME)
 
-.PHONY: build build-nc
+.PHONY: build build-nc push
 
 hw=$(shell uname -m)
 ifeq ($(hw), x86_64)
@@ -13,7 +14,10 @@ else
 endif
 
 build: Dockerfile
-	docker build -t $(USERNAME)/$(IMG_NAME) --build-arg ARCH=$(ARCH) .
+	docker build -t $(IMG) --build-arg ARCH=$(ARCH) .
+
+push: build
+	docker image push $(IMG)
 
 build-nc: Dockerfile
-	docker build --no-cache -t $(USERNAME)/$(IMG_NAME) --build-arg ARCH=$(ARCH) .
+	docker build --no-cache -t $(IMG) --build-arg ARCH=$(ARCH) .

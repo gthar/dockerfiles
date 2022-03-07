@@ -1,10 +1,15 @@
-USERNAME = rilla
 IMG_NAME = backup
+REGISTRY=registry.monotremata.xyz:443
 
-.PHONY: build build-nc
+IMG=$(REGISTRY)/$(IMG_NAME)
+
+.PHONY: build build-nc tag push
 
 build: Dockerfile make_backup.sh
-	docker build -t $(USERNAME)/$(IMG_NAME) .
+	docker build -t $(IMG) .
 
-build-nc: Dockerfile make_backup.sh
-	docker build --no-cache -t $(USERNAME)/$(IMG_NAME) .
+push: build
+	docker image push $(IMG)
+
+build-nc: Dockerfile docker-entrypoint.sh sshd_config
+	docker build --no-cache -t $(IMG)

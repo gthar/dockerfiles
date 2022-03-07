@@ -1,7 +1,9 @@
-FROM alpine:3.13
+FROM alpine:3.14
+
+ENV VER 3.00
 
 RUN apk add --no-cache --virtual .build-deps \
-        git \
+        curl \
         cmake \
         make \
         gcc \
@@ -12,8 +14,10 @@ RUN apk add --no-cache --virtual .build-deps \
         autoconf \
         libtool && \
     mkdir -p /usr/local/src && \
-    git clone https://github.com/transmission/transmission /usr/local/src/transmission && \
-    git -C /usr/local/src/transmission submodule update --init && \
+    curl -L \
+        --output "/usr/local/src/transmission-${VER}.tar.xz" \
+        "https://github.com/transmission/transmission-releases/raw/master/transmission-${VER}.tar.xz" && \
+    tar -xf "/usr/local/src/tranmission-${VER}.tar.xz" -C /usr/local/src && \
     mkdir -p /usr/local/src/transmission/build && \
     cd /usr/local/src/transmission/build && \
     cmake .. && \

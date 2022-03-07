@@ -1,7 +1,7 @@
-FROM debian:buster-slim
+FROM debian:bullseye-slim
 
 ARG ARCH
-ENV VER v0.17.2.0
+ENV VER v0.17.2.3
 ENV URL "https://downloads.getmonero.org/cli/monero-linux-${ARCH}-${VER}.tar.bz2"
 
 RUN apt-get update && \
