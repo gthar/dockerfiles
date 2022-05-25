@@ -1,30 +1,29 @@
 # syncthing
 
-FROM alpine:3.14
+FROM alpine:3.15
 
-ARG ARCH
-ENV VER v1.18.3
-ENV REL syncthing-linux-${ARCH}-${VER}
-ENV URI https://github.com/syncthing/syncthing/releases/download/${VER}/${REL}.tar.gz
+ARG TARGETPLATFORM
+ENV VERSION v1.20.1
 
-RUN apk add --no-cache su-exec
-
-RUN adduser -u 1001 -h /var/lib/syncthing -D syncthing && \
-    addgroup -S -g 1005 books && addgroup syncthing books && \
-    addgroup -S -g 1006 buku  && addgroup syncthing buku
-
-RUN mkdir -p /data && chown -R syncthing:syncthing /data
+RUN addgroup --gid 10001 syncthing && \
+    adduser \
+        --uid 10000 \
+        --home /var/lib/syncthing \
+        --ingroup syncthing \
+        --disabled-password \
+        --shell /sbin/nologin \
+        syncthing && \
+    mkdir -p /data && chown -R syncthing:syncthing /data && \
+    cd /tmp && \
+    ARCH=$(echo "$TARGETPLATFORM" | sed 's/\//-/') && \
+    RELEASE="syncthing-${ARCH}-${VERSION}" && \
+    URI="https://github.com/syncthing/syncthing/releases/download/${VERSION}/${RELEASE}.tar.gz" && \
+    echo "$URI" && \
+    wget "${URI}" && \
+    tar -xzf "${RELEASE}.tar.gz" && \
+    cp "/tmp/${RELEASE}/syncthing" /usr/local/bin/syncthing && \
+    rm -r "/tmp/${RELEASE}" "/tmp/${RELEASE}.tar.gz"
 
 VOLUME /data /var/lib/syncthing
-
-RUN cd /tmp && \
-    wget ${URI} && \
-    tar -xzf ${REL}.tar.gz && \
-    cp /tmp/${REL}/syncthing /usr/local/bin/syncthing && \
-    rm -r /tmp/${REL} /tmp/${REL}.tar.gz
-
-COPY docker-entrypoint.sh /entrypoint
-
-RUN chmod +x /entrypoint
-ENTRYPOINT ["/entrypoint"]
+USER syncthing
 CMD ["/usr/local/bin/syncthing", "-home=/var/lib/syncthing"]
