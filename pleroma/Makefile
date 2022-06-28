@@ -1,10 +1,19 @@
-USERNAME = rilla
-IMG_NAME = pleroma
+IMG_NAME=pleroma
+REGISTRY=registry.monotremata.xyz
+IMG=$(REGISTRY)/$(IMG_NAME)
+PLATFORMS=linux/amd64
 
-.PHONY: build build-nc
+.PHONY: build buildx push
 
 build: Dockerfile entrypoint.sh
-	docker build -t $(USERNAME)/$(IMG_NAME) .
+	docker build -t $(IMG) .
 
-build-nc: Dockerfile entrypoint.sh
-	docker build --no-cache -t $(USERNAME)/$(IMG_NAME) .
+push: build
+	docker image push $(IMG)
+
+buildx: Dockerfile entrypoint.sh
+	docker buildx build \
+		--platform $(PLATFORMS) \
+		--tag $(IMG) \
+		--push \
+		.
