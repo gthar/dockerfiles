@@ -3,7 +3,7 @@ REGISTRY=registry.monotremata.xyz
 IMG=$(REGISTRY)/$(IMG_NAME)
 PLATFORMS=linux/amd64
 
-.PHONY: build build-nc
+.PHONY: build push buildx
 
 build: Dockerfile
 	docker build -t $(IMG) .
