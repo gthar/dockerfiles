@@ -1,4 +1,4 @@
-FROM alpine:3.13
+FROM alpine:3.16
 
 RUN apk add --no-cache --virtual .build-deps cargo && \
     apk add --no-cache libgcc && \

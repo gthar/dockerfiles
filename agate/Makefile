@@ -1,10 +1,19 @@
-USERNAME = rilla
-IMG_NAME = agate
+IMG_NAME=agate
+REGISTRY=registry.monotremata.xyz
+IMG=$(REGISTRY)/$(IMG_NAME)
+PLATFORMS=linux/amd64
 
 .PHONY: build build-nc
 
 build: Dockerfile
-	docker build -t $(USERNAME)/$(IMG_NAME) .
+	docker build -t $(IMG) .
 
-build-nc: Dockerfile
-	docker build --no-cache -t $(USERNAME)/$(IMG_NAME) .
+push: build
+	docker image push $(IMG)
+
+buildx: Dockerfile
+	docker buildx build \
+		--platform $(PLATFORMS) \
+		--tag $(IMG) \
+		--push \
+		.
