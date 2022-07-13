@@ -1,10 +1,19 @@
-USERNAME = rilla
-IMG_NAME = tor
+IMG_NAME=tor
+REGISTRY=registry.monotremata.xyz
+IMG=$(REGISTRY)/$(IMG_NAME)
+PLATFORMS=linux/amd64
 
-.PHONY: build build-nc
+.PHONY: build push buildx
 
 build: Dockerfile entrypoint.sh
-	docker build -t $(USERNAME)/$(IMG_NAME) .
+	docker build -t $(IMG) .
 
-build-nc: Dockerfile entrypoint.sh
-	docker build --no-cache -t $(USERNAME)/$(IMG_NAME) .
+push: build
+	docker image push $(IMG)
+
+buildx: Dockerfile entrypoint.sh
+	docker buildx build \
+		--platform $(PLATFORMS) \
+		--tag $(IMG) \
+		--push \
+		.
