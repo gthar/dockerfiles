@@ -16,12 +16,19 @@ docker registry.
 ## Currently implemented images:
 
 * agate
+* buildx-qemu (image I use to build the other images in my CI/CD)
 * mpd
 * pleroma
 * rainloop
 * tor
 * transmission
 * webdav (really simple nginx + `nginx-mod-http-dav-ext` image)
+
+## Create buildx driver
+
+```sh
+docker buildx create --use
+```
 
 ## Enable multi-arch execution
 
