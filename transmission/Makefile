@@ -1,8 +1,9 @@
-IMG_NAME = transmission
-REGISTRY=registry.monotremata.xyz:443
+IMG_NAME=transmission
+REGISTRY=registry.monotremata.xyz
 IMG=$(REGISTRY)/$(IMG_NAME)
+PLATFORMS=linux/arm64
 
-.PHONY: build build-nc push
+.PHONY: build push buildx
 
 build: Dockerfile
 	docker build -t $(IMG) .
@@ -10,5 +11,9 @@ build: Dockerfile
 push: build
 	docker image push $(IMG)
 
-build-nc: Dockerfile
-	docker build --no-cache -t $(IMG) .
+buildx: Dockerfile
+	docker buildx build \
+		--platform $(PLATFORMS) \
+		--tag $(IMG) \
+		--push \
+		.

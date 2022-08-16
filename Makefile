@@ -1,75 +1,32 @@
-images=agate archivebox ansible backup buku ddclient git-daemon gitolite gitolite-pystagit rss-bridge pleroma sassc syncthing tasks tor transmission vdirsyncer xandikos nfs-server dendrite rainloop monero filite
+REGISTRY=registry.monotremata.xyz
+PLATFORMS=linux/amd64,linux/arm64
 
-.PHONY: all $(images)
-all: $(images)
+IMAGES=agate mpd pleroma rainloop tor transmission webdav
 
-BUILD = make -C $@
+.PHONY: all $(IMAGES)
+
+all: $(IMAGES)
+
+BUILDX=make -C $@ buildx
+# BUILDX=docker buildx build --platform $(PLATFORMS) --tag $(REGISTRY)/$@ --push $@
 
 agate:
-	$(BUILD)
+	$(BUILDX)
 
-archivebox:
-	$(BUILD)
-
-ansible:
-	$(BUILD)
-
-backup:
-	$(BUILD)
-
-buku:
-	$(BUILD)
-
-ddclient:
-	$(BUILD)
-
-git-daemon:
-	$(BUILD)
-
-gitolite:
-	$(BUILD)
-
-gitolite-pystagit:
-	$(BUILD)
-
-nfs-server:
-	$(BUILD)
-
-rss-bridge:
-	$(BUILD)
+mpd:
+	$(BUILDX)
 
 pleroma:
-	$(BUILD)
-
-sassc:
-	$(BUILD)
-
-syncthing:
-	$(BUILD)
-
-tasks:
-	$(BUILD)
-
-tor:
-	$(BUILD)
-
-transmission:
-	$(BUILD)
-
-vdirsyncer:
-	$(BUILD)
-
-xandikos:
-	$(BUILD)
-
-dendrite:
-	$(BUILD)
+	$(BUILDX)
 
 rainloop:
-	$(BUILD)
+	$(BUILDX)
 
-monero:
-	$(BUILD)
+tor:
+	$(BUILDX)
 
-filite:
-	$(BUILD)
+transmission:
+	$(BUILDX)
+
+webdav:
+	$(BUILDX)
