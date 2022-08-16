@@ -19,7 +19,6 @@ docker registry.
 * mpd
 * pleroma
 * rainloop
-* tasks
 * tor
 * transmission
-* webdav
+* webdav (really simple nginx + `nginx-mod-http-dav-ext` image)
