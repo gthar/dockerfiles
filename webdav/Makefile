@@ -5,13 +5,13 @@ PLATFORMS=linux/amd64,linux/arm64
 
 .PHONY: build push buildx
 
-build: Dockerfile
+build: Dockerfile nginx.conf
 	docker build -t $(IMG) .
 
 push: build
 	docker image push $(IMG)
 
-buildx: Dockerfile
+buildx: Dockerfile nginx.conf
 	docker buildx build \
 	    --platform $(PLATFORMS) \
 	    --tag $(IMG) \
