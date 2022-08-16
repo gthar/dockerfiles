@@ -1,5 +1,0 @@
-#!/bin/sh
-
-set -e
-
-[ -n "$2" ] && /usr/local/bin/build-pystagit-repo "$2"
