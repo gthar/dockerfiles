@@ -7,8 +7,7 @@ IMAGES=agate mpd pleroma rainloop tor transmission webdav
 
 all: $(IMAGES)
 
-BUILDX=make -C $@ buildx
-# BUILDX=docker buildx build --platform $(PLATFORMS) --tag $(REGISTRY)/$@ --push $@
+BUILDX=docker buildx build --platform $(PLATFORMS) --tag $(REGISTRY)/$@ --push $@
 
 agate:
 	$(BUILDX)
