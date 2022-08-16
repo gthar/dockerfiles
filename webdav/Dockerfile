@@ -1,4 +1,4 @@
-FROM alpine:3.15
+FROM alpine:3.16
 
 RUN apk add --no-cache nginx nginx-mod-http-dav-ext
 COPY nginx.conf /etc/nginx/nginx.conf
