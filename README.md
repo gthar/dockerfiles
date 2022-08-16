@@ -22,3 +22,9 @@ docker registry.
 * tor
 * transmission
 * webdav (really simple nginx + `nginx-mod-http-dav-ext` image)
+
+## Enable multi-arch execution
+
+```sh
+docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+```
