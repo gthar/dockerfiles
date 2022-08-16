@@ -5,13 +5,13 @@ PLATFORMS=linux/arm64
 
 .PHONY: build push buildx
 
-build: Dockerfile
+build: Dockerfile entrypoint.sh nginx.conf
 	docker build -t $(IMG) .
 
 push: build
 	docker image push $(IMG)
 
-buildx: Dockerfile
+buildx: Dockerfile entrypoint.sh nginx.conf
 	docker buildx build \
 		--platform $(PLATFORMS) \
 		--tag $(IMG) \
