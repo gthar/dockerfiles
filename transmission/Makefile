@@ -1,7 +1,7 @@
 IMG_NAME=transmission
 REGISTRY=registry.monotremata.xyz
 IMG=$(REGISTRY)/$(IMG_NAME)
-PLATFORMS=linux/arm64
+PLATFORMS=linux/amd64,linux/arm64
 
 .PHONY: build push buildx
 
