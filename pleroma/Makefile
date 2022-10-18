@@ -3,12 +3,14 @@ REGISTRY=registry.monotremata.xyz
 IMG=$(REGISTRY)/$(IMG_NAME)
 PLATFORMS=linux/amd64
 
-.PHONY: build push buildx
+.PHONY: push buildx
 
-build: Dockerfile entrypoint.sh
+out/image-name: Dockerfile entrypoint.sh
+	mkdir -p $(@D)
 	docker build -t $(IMG) .
+	@echo $(IMG) > $(@)
 
-push: build
+push: out/image-name
 	docker image push $(IMG)
 
 buildx: Dockerfile entrypoint.sh

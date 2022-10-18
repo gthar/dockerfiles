@@ -1,3 +1,4 @@
 gitolite/.env
 ansible/.env
 ansible/known_hosts
+*/out/image-name
