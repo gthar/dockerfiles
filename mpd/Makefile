@@ -1,19 +1,28 @@
 IMG_NAME = mpd
-REGISTRY=registry.monotremata.xyz
-IMG=$(REGISTRY)/$(IMG_NAME)
-PLATFORMS=linux/arm64
+REGISTRY = registry.monotremata.xyz
+IMG = $(REGISTRY)/$(IMG_NAME)
+PLATFORM = linux/amd64,linux/arm64
+JOBS = 1
 
-.PHONY: build push buildx
+.PHONY: build push
 
-build: Dockerfile
-	docker build -t $(IMG) .
 
-push: build
-	docker image push $(IMG)
+out/image-name: Dockerfile
+	mkdir -p $(@D)
+	buildah build \
+		--jobs=$(JOBS) \
+		--platform=$(PLATFORM) \
+		--manifest=$(IMG) .
+	@echo $(IMG) > $(@)
 
-buildx: Dockerfile
-	docker buildx build \
-	    --platform $(PLATFORMS) \
-	    --tag $(IMG) \
-	    --push \
-	    .
+#out/image-name: Dockerfile
+#    mkdir -p $(@D)
+#    podman build \
+#        --manifest $(ING) \
+#        --platform linux/amd64 \
+#        --platform linux/arm64 \
+#        .
+#    @echo $(IMG) > $(@)
+
+push: out/image-name
+	podman manifest push --all $(IMG) docker://$(IMG)
