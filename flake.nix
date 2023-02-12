@@ -8,7 +8,8 @@
       let pkgs = nixpkgs.legacyPackages.${system};
       in {
         devShells.default = pkgs.mkShell {
-          nativeBuildInputs = [ pkgs.podman pkgs.buildah pkgs.skopeo ];
+          nativeBuildInputs =
+            [ pkgs.podman pkgs.buildah pkgs.skopeo ];
           buildInputs = [ ];
         };
       });
