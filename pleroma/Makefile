@@ -1,21 +1,18 @@
-IMG_NAME=pleroma
-REGISTRY=registry.monotremata.xyz
-IMG=$(REGISTRY)/$(IMG_NAME)
-PLATFORMS=linux/amd64
+IMG_NAME = pleroma
+REGISTRY = registry.monotremata.xyz
+IMG = $(REGISTRY)/$(IMG_NAME)
+PLATFORM = linux/amd64
+JOBS = 1
 
-.PHONY: push buildx
+.PHONY: push
 
 out/image-name: Dockerfile entrypoint.sh
 	mkdir -p $(@D)
-	docker build -t $(IMG) .
+	buildah build \
+		--jobs=$(JOBS) \
+		--platform=$(PLATFORM) \
+		--manifest=$(IMG) .
 	@echo $(IMG) > $(@)
 
 push: out/image-name
-	docker image push $(IMG)
-
-buildx: Dockerfile entrypoint.sh
-	docker buildx build \
-		--platform $(PLATFORMS) \
-		--tag $(IMG) \
-		--push \
-		.
+	podman manifest push --all $(IMG) docker://$(IMG)

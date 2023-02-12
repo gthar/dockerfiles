@@ -1,6 +1,7 @@
 FROM elixir:1.14-alpine as build
 
 ENV MIX_ENV=prod
+ENV VERSION=v2.5.0
 
 RUN apk add \
         git \
@@ -11,7 +12,7 @@ RUN apk add \
         cmake \
         file-dev && \
     git clone \
-        -b develop \
+        --branch "$VERSION" \
         https://git.pleroma.social/pleroma/pleroma.git \
         /pleroma
 
@@ -24,14 +25,15 @@ RUN echo "import Mix.Config" > /pleroma/config/prod.secret.exs && \
     mkdir -p /pleroma/release && \
     mix release --path release
 
-FROM alpine:3.16
+FROM alpine:3.17
 
 RUN apk add --update --no-cache \
         exiftool \
+        ffmpeg \
         imagemagick \
+        libcrypto1.1 \
         libmagic \
         ncurses \
-	ffmpeg \
         postgresql-client && \
     addgroup \
         --gid 10001 \
@@ -48,6 +50,7 @@ RUN apk add --update --no-cache \
     chown -R pleroma /var/lib/pleroma && \
     mkdir -p /etc/pleroma && \
     chown -R pleroma /etc/pleroma
+
 
 ENV PATH=/opt/pleroma/bin:$PATH
 
